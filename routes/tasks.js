@@ -21,13 +21,20 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-    const tasks = await Tasks.findByIdAndUpdate(
-        { _id: req.params.id },
-        {
+    let data = {};
+    if (req.body.taskName)
+        data = {
             taskName: req.body.taskName,
-        },
-        { upsert: true }
-    );
+        };
+    else
+        data = {
+            status: req.body.status,
+        };
+
+    const tasks = await Tasks.findByIdAndUpdate({ _id: req.params.id }, data, {
+        upsert: true,
+    });
+
     if (!tasks)
         return res
             .status(400)

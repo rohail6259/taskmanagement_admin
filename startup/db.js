@@ -10,11 +10,7 @@ module.exports = function () {
 
     mongoose.set("useCreateIndex", true);
 
-    // mongoose
-    //     .connect(process.env.CONNECTION_STRING, options)
-    //     .then(() => console.log("Connected to db..."));
-
     mongoose
-        .connect("mongodb://localhost/taskmanager", options)
+        .connect(process.env.CONNECTION_STRING, options)
         .then(() => console.log("Connected to db..."));
 };
